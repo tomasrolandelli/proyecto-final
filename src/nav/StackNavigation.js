@@ -38,7 +38,14 @@ class Menu extends Component {
         auth.createUserWithEmailAndPassword(email, pass)
             .then((response) => {
                 this.setState({ loggedIn: true })
-                auth.currentUser.updateProfile({displayName: user})
+                db.collection('users').add({
+                    email: email,
+                    password: pass,
+                    username: user,
+                    createdAt: Date.now()
+                })
+                    .then((response) => console.log(response))
+                    .catch((err) => console.log(err))
             })
             .catch(error => {
                 this.setState({ error: 'Fallo en el registro.' })
@@ -63,11 +70,19 @@ class Menu extends Component {
                             <Stack.Screen
                                 name='Landpage'
                                 component={Landpage}
-                                options={{ headerShown: false }}
+                                options={{
+                                    headerShown: false
+                                }}
                             />
                             <Stack.Screen
                                 name='Login'
                                 component={Login}
+                                options={{
+                                    headerStyle: {
+                                        backgroundColor: '#f4511e'
+                                    },
+                                    headerTintColor:'#FFFFFF'
+                                }}
                                 initialParams={{
                                     onLogin: (email, pass) => this.onLogin(email, pass)
                                 }}

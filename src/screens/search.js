@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 
 class Search extends Component {
     constructor(){
@@ -9,7 +9,7 @@ class Search extends Component {
     render() {
         return (
             <View>
-                
+                <Text>Serach</Text>
             </View>
         );
     }
