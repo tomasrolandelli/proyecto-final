@@ -38,14 +38,7 @@ class Menu extends Component {
         auth.createUserWithEmailAndPassword(email, pass)
             .then((response) => {
                 this.setState({ loggedIn: true })
-                db.collection('users').add({
-                    email: email,
-                    password: pass,
-                    username: user,
-                    createdAt: Date.now()
-                })
-                    .then((response) => console.log(response))
-                    .catch((err) => console.log(err))
+                auth.currentUser.updateProfile({displayName: user})
             })
             .catch(error => {
                 this.setState({ error: 'Fallo en el registro.' })
