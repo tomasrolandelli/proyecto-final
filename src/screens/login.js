@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native';
 
 class Login extends Component {
     constructor(){
         super()
-        this.state = {}
+        this.state = {
+            email: "",
+            password: ""
+        }
     }
     render() {
         return (
             <View>
-                <Text>
-                    Esta es la página de Login
-                </Text>
+                <TextInput onChangeText={(text)=> this.setState({email: text })} placeholder="Email" keyboardType='email-adress' value={this.state.email} />
+                <TextInput onChangeText={(text)=> this.setState({password: text })} placeholder="Contraseña" keyboardType='default' value={this.state.password} secureTextEntry={true} />
+                <TouchableOpacity>
+                    <Text>
+                        Ingresar
+                    </Text>
+                </TouchableOpacity>
             </View>
         );
     }
