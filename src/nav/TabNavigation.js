@@ -1,6 +1,5 @@
 //ELEMENTOS REACT
 import React, { Component } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 //SCREENS
@@ -15,9 +14,7 @@ import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
-
-//AUTH Y DB
-
+//TAB NAVIGATION
 const Tab = createBottomTabNavigator()
 
 

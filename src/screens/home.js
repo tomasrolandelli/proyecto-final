@@ -1,15 +1,19 @@
 //ELEMENTOS REACT
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, StyleSheet, Text, FlatList, ActivityIndicator } from 'react-native';
 
-//DB Y AUTH
-import { db, auth } from '../firebase/config';
+//SCREENS
+import Post from '../components/Post';
+
+//DB
+import { db } from '../firebase/config';
 
 class Home extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            posts: []
+            posts: [],
+            cargando: true
         }
     }
     componentDidMount() {
@@ -22,7 +26,8 @@ class Home extends Component {
                         data: doc.data()
                     })
                     this.setState({
-                        posts: posts
+                        posts: posts,
+                        cargando: false
                     })
                 })
             }
@@ -35,21 +40,15 @@ class Home extends Component {
             <View style={styles.container}>
                 <Text style={styles.titulo}>Holu</Text>
                 <View style={styles.section}>
-                    <FlatList
-                        data={this.state.posts}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={({ item }) =>
-                            <View style={styles.card}>
-                                <Text>{item.data.owner}</Text>
-                                <Image
-                                    style={styles.postImage}
-                                    source={require('../../assets/icon.png')}
-                                />
-                                <Text>{item.data.description}</Text>
-
-                            </View>}
-                    />
-
+                    {this.state.cargando ?
+                        <ActivityIndicator size='xlarge' color='green' />
+                        :
+                        <FlatList
+                            data={this.state.posts}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={({ item }) => <Post info={item}></Post>}
+                        />
+                    }
                 </View>
             </View>
         );
@@ -72,18 +71,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         backgroundColor: '#0000FF',
         width: 350,
-    },
-    card: {
-        backgroundColor: '#FFFFFF',
-        height: 300,
-        width: 340,
-        margin: 5,
-        alignSelf: 'center'
-
-    },
-    postImage: {
-        width: 300,
-        height: 200
     }
 })
 
