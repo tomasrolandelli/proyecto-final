@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, TextInput, ImageBackground} from 'react-native';
 
 class Login extends Component {
     constructor() {
@@ -11,27 +11,33 @@ class Login extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.h1}> Login:  </Text>
-                <TextInput
-                    style={styles.formulario}
-                    keyboardType='email-address'
-                    placeholder='email'
-                    onChangeText={(text) => this.setState({ email: text })}
-                />
-                <TextInput
-                    style={styles.formulario}
-                    keyboardType='default'
-                    placeholder='password'
-                    secureTextEntry={true}
-                    onChangeText={(text) => this.setState({ password: text })}
-                />
-                <TouchableOpacity style={styles.botonForm} onPress={() => this.props.route.params.onLogin(this.state.email, this.state.password)}>
-                    <Text style={styles.textoBoton}> GO </Text>
-                </TouchableOpacity>
-                {this.state.error !== '' ?
-                    <Text>{this.state.error}</Text>
-                    :
-                    null}
+                <ImageBackground
+                    source={require('../../assets/backround.jpg')}
+                    resizeMode='cover'
+                    style={styles.cover}
+                >
+                    <Text style={styles.h1}> Login:  </Text>
+                    <TextInput
+                        style={styles.formulario}
+                        keyboardType='email-address'
+                        placeholder='email'
+                        onChangeText={(text) => this.setState({ email: text })}
+                    />
+                    <TextInput
+                        style={styles.formulario}
+                        keyboardType='default'
+                        placeholder='password'
+                        secureTextEntry={true}
+                        onChangeText={(text) => this.setState({ password: text })}
+                    />
+                    <TouchableOpacity style={styles.botonForm} onPress={() => this.props.route.params.onLogin(this.state.email, this.state.password)}>
+                        <Text style={styles.textoBoton}> GO </Text>
+                    </TouchableOpacity>
+                    {this.state.error !== '' ?
+                        <Text>{this.state.error}</Text>
+                        :
+                        null}
+                </ImageBackground>
             </View>
         );
     }
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#AC4040'
+        backgroundColor: '#909f43'
     },
     botonForm: {
         backgroundColor: '#030303',
@@ -76,6 +82,13 @@ const styles = StyleSheet.create({
         fontSize: 50,
         textAlign: 'center'
     },
+    cover:{
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minWidth: 400
+    }
 })
 
 export default Login;

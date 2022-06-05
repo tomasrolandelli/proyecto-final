@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 
 class Register extends Component {
     constructor() {
@@ -9,30 +9,36 @@ class Register extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.h1}> REGISTER </Text>
-                <TextInput
-                    style={styles.formulario}
-                    keyboardType='email-address'
-                    placeholder='email'
-                    onChangeText={(text) => this.setState({ email: text })}
-                />
-                <TextInput
-                    style={styles.formulario}
-                    keyboardType='default'
-                    placeholder='username'
-                    onChangeText={(text) => this.setState({ username: text })}
-                />
-                <Text style={styles.textoPass}>Password must be at least 6 characters long</Text>
-                <TextInput
-                    style={styles.formulario}
-                    keyboardType='default'
-                    placeholder='password'
-                    secureTextEntry={true}
-                    onChangeText={(text) => this.setState({ password: text })}
-                />
-                <TouchableOpacity style={styles.botonForm} onPress={() => this.props.route.params.onRegister(this.state.email, this.state.password, this.state.username)}>
-                    <Text style={styles.textoBoton}> GO </Text>
-                </TouchableOpacity>
+                <ImageBackground
+                    source={require('../../assets/backround.jpg')}
+                    resizeMode='cover'
+                    style={styles.cover}
+                >
+                    <Text style={styles.h1}> REGISTER </Text>
+                    <TextInput
+                        style={styles.formulario}
+                        keyboardType='email-address'
+                        placeholder='email'
+                        onChangeText={(text) => this.setState({ email: text })}
+                    />
+                    <TextInput
+                        style={styles.formulario}
+                        keyboardType='default'
+                        placeholder='username'
+                        onChangeText={(text) => this.setState({ username: text })}
+                    />
+                    <Text style={styles.textoPass}>Password must be at least 6 characters long</Text>
+                    <TextInput
+                        style={styles.formulario}
+                        keyboardType='default'
+                        placeholder='password'
+                        secureTextEntry={true}
+                        onChangeText={(text) => this.setState({ password: text })}
+                    />
+                    <TouchableOpacity style={styles.botonForm} onPress={() => this.props.route.params.onRegister(this.state.email, this.state.password, this.state.username)}>
+                        <Text style={styles.textoBoton}> GO </Text>
+                    </TouchableOpacity>
+                </ImageBackground>
             </View>
         );
     }
@@ -54,7 +60,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#AC4040'
+        backgroundColor: '#909f43',
     },
     botonForm: {
         backgroundColor: '#030303',
@@ -77,8 +83,15 @@ const styles = StyleSheet.create({
         fontSize: 50,
         textAlign: 'center'
     },
-    textoPass:{
+    textoPass: {
         color: '#FFFFFF'
+    },
+    cover: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minWidth: 400
     }
 })
 

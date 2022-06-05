@@ -43,6 +43,10 @@ export default class Tabnavigation extends Component {
                     options={{
                         headerShown: false,
                         tabBarIcon: () => <FontAwesome name="user" size={24} color="black" />
+                        
+                    }}
+                    initialParams={{
+                        onLogout: () => this.props.route.params.onLogout()
                     }}
 
                 />

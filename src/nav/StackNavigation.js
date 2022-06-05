@@ -52,6 +52,12 @@ class Menu extends Component {
                 console.error(error)
             })
     }
+    onLogout() {
+        auth.signOut()
+            .then(response => this.setState({
+                loggedIn: false
+            }))
+    }
     render() {
         return (
             <NavigationContainer>
@@ -79,7 +85,7 @@ class Menu extends Component {
                                 component={Login}
                                 options={{
                                     headerStyle: {
-                                        backgroundColor: '#f4511e'
+                                        backgroundColor: '#6F4E37'
                                     },
                                     headerTintColor:'#FFFFFF'
                                 }}
@@ -90,6 +96,12 @@ class Menu extends Component {
                             <Stack.Screen
                                 name='Register'
                                 component={Register}
+                                options={{
+                                    headerStyle: {
+                                        backgroundColor: '#6F4E37'
+                                    },
+                                    headerTintColor:'#FFFFFF'
+                                }}
                                 initialParams={{
                                     onRegister: (email, pass, user) => this.onRegister(email, pass, user)
                                 }}

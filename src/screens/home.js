@@ -1,6 +1,6 @@
 //ELEMENTOS REACT
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, FlatList, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Text, FlatList, ActivityIndicator, ImageBackground } from 'react-native';
 
 //SCREENS
 import Post from '../components/Post';
@@ -38,18 +38,24 @@ class Home extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.titulo}>Holu</Text>
-                <View style={styles.section}>
-                    {this.state.cargando ?
-                        <ActivityIndicator size='xlarge' color='green' />
-                        :
-                        <FlatList
-                            data={this.state.posts}
-                            keyExtractor={(item) => item.id.toString()}
-                            renderItem={({ item }) => <Post info={item}></Post>}
-                        />
-                    }
-                </View>
+                <ImageBackground
+                    source={require('../../assets/backround.jpg')}
+                    resizeMode='cover'
+                    style={styles.cover}
+                >
+                    <Text style={styles.titulo}>Petpix</Text>
+                    <View style={styles.section}>
+                        {this.state.cargando ?
+                            <ActivityIndicator size='xlarge' color='green' />
+                            :
+                            <FlatList
+                                data={this.state.posts}
+                                keyExtractor={(item) => item.id.toString()}
+                                renderItem={({ item }) => <Post info={item}></Post>}
+                            />
+                        }
+                    </View>
+                </ImageBackground>
             </View>
         );
     }
@@ -60,17 +66,30 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        backgroundColor: '#AC4040'
+        backgroundColor: '#909f43',
     },
     titulo: {
-        fontSize: 50
+        color: '#6F4E37',
+        fontSize: 50,
+        backgroundColor: '#FFFFFF',
+        padding: 5,
+        borderWidth: 2,
+        borderColor: '#6F4E37',
+        borderRadius: 4,
+        margin: 5
     },
     section: {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: '#0000FF',
         width: 350,
+    },
+    cover: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minWidth: 400
     }
 })
 

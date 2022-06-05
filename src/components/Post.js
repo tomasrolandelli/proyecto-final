@@ -1,6 +1,8 @@
 //ELEMENTOS REACT
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+
+//FIREBASE
 import firebase from 'firebase'
 
 //AUTH Y DB
@@ -60,25 +62,28 @@ export default class Post extends Component {
         const info = this.props.info.data
         return (
             <View style={styles.card}>
-                <Text>{info.owner}</Text>
+                <Text style={styles.poster}>{info.owner}</Text>
                 <Image
                     style={styles.postImage}
-                    source={require('../../assets/icon.png')}
+                    source={require('../../assets/cora1.jpg')}
+                    resizeMode='contain'
                 />
-                <Text>{info.description}</Text>
-                <View style={styles.divLikes}>
-                    <Text>{this.state.cantLikes}</Text>
-                    {
-                        this.state.miLike?
-                            <TouchableOpacity onPress={() => this.unlike()}>
-                                <FontAwesome name='heart' size={24} color='red' />
-                            </TouchableOpacity>
-                            :
-                            <TouchableOpacity onPress={() => this.like()}>
-                                <FontAwesome name='heart-o' size={24} color='black' />
-                            </TouchableOpacity>
+                <View style={styles.base}>
+                    <Text>{info.description}</Text>
+                    <View style={styles.divLikes}>
+                        <Text>{this.state.cantLikes}</Text>
+                        {
+                            this.state.miLike ?
+                                <TouchableOpacity onPress={() => this.unlike()}>
+                                    <FontAwesome name='heart' size={24} color='red' />
+                                </TouchableOpacity>
+                                :
+                                <TouchableOpacity onPress={() => this.like()}>
+                                    <FontAwesome name='heart-o' size={24} color='black' />
+                                </TouchableOpacity>
 
-                    }
+                        }
+                    </View>
                 </View>
             </View>
         )
@@ -90,15 +95,32 @@ const styles = StyleSheet.create({
         height: 300,
         width: 340,
         margin: 5,
-        alignSelf: 'center'
-
+        alignSelf: 'center',
+        display: 'flex',
+        borderWidth: 2,
+        borderRadius: 4
     },
     postImage: {
-        width: 300,
-        height: 200
+        width: 320,
+        height: 200,
+        alignSelf: 'center',
+        borderWidth: 2,
+
     },
     divLikes: {
         backgroundColor: '#C9E1BE',
         display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        marginHorizontal: 80
+    },
+    poster: {
+        margin: 5
+    },
+    base:{
+        backgroundColor: '#C19A6B',
+        margin: 10,
+        paddingLeft: 5,
+        paddingRight: 5
     }
 })
