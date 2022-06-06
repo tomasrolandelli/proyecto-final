@@ -19,7 +19,7 @@ export default class MyCamera extends Component {
 
     componentDidMount() {
         Camera.requestCameraPermissionsAsync()
-            .then((response) => this.setState({ permission: true }))
+            .then((response) => this.setState({ permission: true, urlFoto:'' }))
             .catch((error) => console.log(error))
     }
     takePhoto() {
