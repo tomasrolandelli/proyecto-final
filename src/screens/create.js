@@ -30,7 +30,8 @@ class Create extends Component {
         })
             .then((response) => {
                 this.setState({
-                    messageState: true
+                    messageState: true,
+                    mostrarComponenteCamara: true
                 })
             })
             .catch((error) => console.log(error))
