@@ -55,7 +55,8 @@ export default class Tabnavigation extends Component {
                     component={Create}
                     options={{
                         headerShown: false,
-                        tabBarIcon: () => <AntDesign name="pluscircle" size={24} color="black" />
+                        tabBarIcon: () => <AntDesign name="pluscircle" size={24} color="black"/>, 
+                        unmountOnBlur: true
                     }}
 
                 />
