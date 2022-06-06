@@ -5,14 +5,17 @@ import { View, StyleSheet, TouchableOpacity, TextInput, Text, ImageBackground } 
 //AUTH Y DB
 import { db, auth } from '../firebase/config';
 
-
+//COMPONENTS
+import MyCamera from '../components/MyCamera';
 
 class Create extends Component {
     constructor(props) {
         super(props)
         this.state = {
             texto: '',
-            messageState: false
+            messageState: false,
+            mostrarComponenteCamara: true,
+            urlPhoto: ''
         }
     }
     onSubmitPost(texto) {
@@ -21,7 +24,8 @@ class Create extends Component {
             description: texto,
             createdAt: Date.now(),
             likes: [],
-            comments: []
+            comments: [],
+            photo: this.state.urlPhoto
 
         })
             .then((response) => {
@@ -31,34 +35,50 @@ class Create extends Component {
             })
             .catch((error) => console.log(error))
     }
+    onPhotoSubmit(url) {
+        console.log(url)
+        this.setState({
+            mostrarComponenteCamara: false,
+            urlPhoto: url
+        })
+    }
     render() {
         return (
-            <View style={styles.container}>
-                <ImageBackground
-                    source={require('../../assets/backround.jpg')}
-                    resizeMode='cover'
-                    style={styles.cover}
-                >
-                    <Text>Agregar post:</Text>
-                    <TextInput
-                        style={styles.formulario}
-                        keyboardType='default'
-                        placeholder='description'
-                        value={this.state.texto}
-                        onChangeText={(text) => this.setState({ texto: text })}
-                    />
-                    <TouchableOpacity onPress={() => {
-                        this.onSubmitPost(this.state.texto)
-                        this.setState({ texto: '' })
-                    }} style={styles.botonForm}>
-                        <Text style={styles.textoBoton}>GO</Text>
-                    </TouchableOpacity>
-                    {this.state.messageState ?
-                        <Text>El posteo fue exitoso</Text>
+            <>
+                {
+                    this.state.mostrarComponenteCamara
+                        ?
+                        <MyCamera onPhotoSubmit={(url)=>this.onPhotoSubmit(url)}/>
                         :
-                        null}
-                </ImageBackground>
-            </View>
+                        <View style={styles.container}>
+                            <ImageBackground
+                                source={require('../../assets/backround.jpg')}
+                                resizeMode='cover'
+                                style={styles.cover}
+                            >
+                                <Text>Agregar post:</Text>
+                                <TextInput
+                                    style={styles.formulario}
+                                    keyboardType='default'
+                                    placeholder='description'
+                                    value={this.state.texto}
+                                    onChangeText={(text) => this.setState({ texto: text })}
+                                />
+                                <TouchableOpacity onPress={() => {
+                                    this.onSubmitPost(this.state.texto)
+                                    this.setState({ texto: '' })
+                                }} style={styles.botonForm}>
+                                    <Text style={styles.textoBoton}>GO</Text>
+                                </TouchableOpacity>
+                                {this.state.messageState ?
+                                    <Text>El posteo fue exitoso</Text>
+                                    :
+                                    null}
+                            </ImageBackground>
+                        </View>
+                }
+
+            </>
         );
     }
 }
