@@ -18,7 +18,7 @@ class Profile extends Component {
         }
     }
     componentDidMount() {
-        db.collection('posts').onSnapshot(
+        db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot(
             docs => {
                 let posts = []
                 docs.forEach(doc => {
@@ -35,7 +35,7 @@ class Profile extends Component {
         )
     }
     render() {
-        console.log(this.props)
+        console.log(auth.currentUser)
         return (
             <View style={styles.container}>
                 <ImageBackground
@@ -51,14 +51,14 @@ class Profile extends Component {
                                 style={styles.profilePic}
                             />
                             <View style={styles.nameAndEmail}>
-                                <Text>username</Text>
-                                <Text>user@mail.com</Text>
+                                <Text> {auth.currentUser.displayName} </Text>
+                                <Text> {auth.currentUser.email} </Text>
                             </View>
                         </View>
                         <View style={styles.bottomInfo}>
                             <View style={styles.lastUsed}>
-                                <Text>Last used: today</Text>
-                                <Text>Posts: 1</Text>
+                                <Text>Last used: {auth.currentUser.metadata.lastSignInTime} </Text>
+                                <Text>Posts: {this.state.posts.length} </Text>
                             </View>
                             <TouchableOpacity style={styles.logoutBoton} onPress={()=> this.props.route.params.onLogout()}>
                                 <Text>Logout</Text>

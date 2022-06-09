@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 
 class Register extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {}
     }
     render() {
@@ -35,6 +35,7 @@ class Register extends Component {
                         secureTextEntry={true}
                         onChangeText={(text) => this.setState({ password: text })}
                     />
+                    <Text> {this.props.errores} </Text>
                     <TouchableOpacity style={styles.botonForm} onPress={() => this.props.route.params.onRegister(this.state.email, this.state.password, this.state.username)}>
                         <Text style={styles.textoBoton}> GO </Text>
                     </TouchableOpacity>

@@ -17,7 +17,7 @@ class Home extends Component {
         }
     }
     componentDidMount() {
-        db.collection('posts').onSnapshot(
+        db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(
             docs => {
                 let posts = []
                 docs.forEach(doc => {
@@ -25,10 +25,10 @@ class Home extends Component {
                         id: doc.id,
                         data: doc.data()
                     })
-                    this.setState({
-                        posts: posts,
-                        cargando: false
-                    })
+                })
+                this.setState({
+                    posts: posts,
+                    cargando: false
                 })
             }
         )
@@ -36,6 +36,7 @@ class Home extends Component {
 
 
     render() {
+        console.log(this.state.posts)
         return (
             <View style={styles.container}>
                 <ImageBackground

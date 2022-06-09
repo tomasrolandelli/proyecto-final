@@ -65,7 +65,7 @@ export default class Post extends Component {
                 <Text style={styles.poster}>{info.owner}</Text>
                 <Image
                     style={styles.postImage}
-                    source={require('../../assets/cora1.jpg')}
+                    source={{uri: info.photo}}
                     resizeMode='contain'
                 />
                 <View style={styles.base}>

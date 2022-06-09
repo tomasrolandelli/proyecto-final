@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, TextInput, ImageBackground} from 'react-native';
 
 class Login extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             error: ''
         }
@@ -30,6 +30,7 @@ class Login extends Component {
                         secureTextEntry={true}
                         onChangeText={(text) => this.setState({ password: text })}
                     />
+                    <Text> {this.props.errores} </Text>
                     <TouchableOpacity style={styles.botonForm} onPress={() => this.props.route.params.onLogin(this.state.email, this.state.password)}>
                         <Text style={styles.textoBoton}> GO </Text>
                     </TouchableOpacity>
