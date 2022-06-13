@@ -35,6 +35,9 @@ export default class Tabnavigation extends Component {
                         headerShown: false,
                         tabBarIcon: () => <Entypo name="home" size={24} color="black" />
                     }}
+                    initialParams={{
+                        navigation: this.props.navigation
+                    }}
 
                 />
                 <Tab.Screen

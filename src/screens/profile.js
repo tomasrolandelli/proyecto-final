@@ -14,7 +14,8 @@ class Profile extends Component {
         super()
         this.state = {
             cargando: true,
-            posts: []
+            posts: [],
+            error: 'Este usuario no realizo ningun posteo todavia'
         }
     }
     componentDidMount() {
@@ -26,11 +27,12 @@ class Profile extends Component {
                         id: doc.id,
                         data: doc.data()
                     })
-                    this.setState({
-                        posts: posts,
-                        cargando: false
-                    })
                 })
+                this.setState({
+                    posts: posts,
+                    cargando: false
+                })
+                
             }
         )
     }
@@ -68,6 +70,9 @@ class Profile extends Component {
                     <View style={styles.posts}>
                     {this.state.cargando ?
                             <ActivityIndicator size='xlarge' color='green' />
+                            :
+                            this.state.posts.length === 0 ?
+                            <Text>{this.state.error}</Text>
                             :
                             <FlatList
                                 data={this.state.posts}

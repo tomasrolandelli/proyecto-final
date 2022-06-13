@@ -70,6 +70,9 @@ export default class Post extends Component {
                 />
                 <View style={styles.base}>
                     <Text>{info.description}</Text>
+                    <TouchableOpacity onPress={()=>this.props.navigation.navigate('Comments',{id: this.props.info.id})}>
+                        <Text>Comentarios</Text>
+                    </TouchableOpacity>
                     <View style={styles.divLikes}>
                         <Text>{this.state.cantLikes}</Text>
                         {

@@ -8,6 +8,7 @@ import Register from '../screens/Register';
 import Login from '../screens/Login';
 import TabNavigation from '../nav/TabNavigation';
 import Landpage from '../screens/Landpage';
+import Comments from '../screens/comments';
 
 //AUTH Y DB
 import { auth, db } from '../firebase/config';
@@ -73,6 +74,7 @@ class Menu extends Component {
             <NavigationContainer>
                 <Stack.Navigator>
                     {this.state.loggedIn ?
+                        <>
                         <Stack.Screen
                             name='Tab'
                             component={TabNavigation}
@@ -81,6 +83,11 @@ class Menu extends Component {
                                 onLogout: () => this.onLogout()
                             }}
                         />
+                        <Stack.Screen
+                            name='Comments'
+                            component={Comments}
+                        />
+                        </>
                         :
                         <Stack.Group>
                             <Stack.Screen
