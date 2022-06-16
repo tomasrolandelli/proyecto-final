@@ -36,7 +36,6 @@ class Home extends Component {
 
 
     render() {
-        console.log(this.state.posts)
         return (
             <View style={styles.container}>
                 <ImageBackground
@@ -47,12 +46,12 @@ class Home extends Component {
                     <Text style={styles.titulo}>Petpix</Text>
                     <View style={styles.section}>
                         {this.state.cargando ?
-                            <ActivityIndicator size='xlarge' color='green' />
+                            <ActivityIndicator size={100} color='green' />
                             :
                             <FlatList
                                 data={this.state.posts}
                                 keyExtractor={(item) => item.id.toString()}
-                                renderItem={({ item }) => <Post info={item} navigation={this.props.route.params.navigation}></Post>}
+                                renderItem={({ item }) => <Post valorBorrar={false} info={item} navigation={this.props.route.params.navigation}></Post>}
                             />
                         }
                     </View>

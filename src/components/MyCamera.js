@@ -57,26 +57,26 @@ export default class MyCamera extends Component {
     render() {
         return (
             <View style={styles.container}>
+                
                 {
                     this.state.permission
                         ?
                         this.state.showCamera === false
                             ?
-                            <>
-                                <Text>Aqui vamos a mostrar la imagen, aceptar y rechazar</Text>
+                            <View style={styles.confirmarFoto}>
                                 <Image
                                     style={styles.picture}
                                     source={{ uri: this.state.urlFoto }}
                                 />
                                 <View style={styles.buttons}>
-                                    <TouchableOpacity onPress={()=>this.acceptPhoto()}>
+                                    <TouchableOpacity style={styles.botonAceptar} onPress={()=>this.acceptPhoto()}>
                                         <Text>Aceptar</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity onPress={()=>this.declinePhoto()}>
+                                    <TouchableOpacity style={styles.botonRechazar} onPress={()=>this.declinePhoto()}>
                                         <Text>Rechazar</Text>
                                     </TouchableOpacity>
                                 </View>
-                            </>
+                            </View>
                             :
                             <>
                                 <Camera
@@ -85,7 +85,7 @@ export default class MyCamera extends Component {
                                     ref={(metodos) => this.metodosDeCamara = metodos}
                                 />
                                 <View style={styles.buttons}>
-                                    <TouchableOpacity onPress={() => this.takePhoto()}>
+                                    <TouchableOpacity style={styles.botonTomarFoto} onPress={() => this.takePhoto()}>
                                         <Text>Tomar la foto</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -99,10 +99,13 @@ export default class MyCamera extends Component {
 }
 const styles = StyleSheet.create({
     camera: {
-        flex: 8
+        flex: 8,
+        borderWidth: 2,
+        borderColor: 'white'
     },
     container: {
         flex: 1,
+        backgroundColor: '#909f43',
 
     },
     buttons: {
@@ -112,6 +115,44 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         color: 'red',
         fontSize: 20
+    },
+    picture:{
+        flex: 1,
+        borderWidth: 2,
+        borderColor: 'white'
+    },
+    botonAceptar:{
+        textAlign: 'center',
+        borderWidth: 2,
+        borderRadius: 4,
+        backgroundColor: 'green',
+        justifyContent: 'center',
+        marginHorizontal: 20,
+        marginVertical: 5
+    },
+    botonRechazar:{
+        textAlign: 'center',
+        borderWidth: 2,
+        borderRadius: 4,
+        backgroundColor: 'red',
+        justifyContent: 'center',
+        marginHorizontal: 20,
+        marginVertical: 5
+
+    },
+    confirmarFoto:{
+        flex: 1,
+        justifyContent: 'center',
+        margin: 30
+    },
+    botonTomarFoto:{
+        textAlign: 'center',
+        borderWidth: 2,
+        borderRadius: 4,
+        backgroundColor: 'green',
+        justifyContent: 'center',
+        marginHorizontal: 20,
+        marginVertical: 5 
     }
 
 })

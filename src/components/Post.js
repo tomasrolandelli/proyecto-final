@@ -18,7 +18,8 @@ export default class Post extends Component {
             miLike: false,
             cantLikes: 0,
             arrLikes: [],
-            arrComments: []
+            arrComments: [],
+            valorBorrar: this.props.valorBorrar
         }
     }
     componentDidMount() {
@@ -57,7 +58,7 @@ export default class Post extends Component {
             cantLikes: this.state.cantLikes - 1
         })
     }
-    onDelete(){
+    onDelete() {
         db.collection('posts').doc(this.props.info.id).delete()
     }
     render() {
@@ -65,33 +66,40 @@ export default class Post extends Component {
         const info = this.props.info.data
         return (
             <View style={styles.card}>
-                <TouchableOpacity onPress={()=>this.onDelete()}>
-                    <Text>Borrar</Text>
-                </TouchableOpacity>
+                {
+                    this.state.valorBorrar ?
+                        <TouchableOpacity onPress={() => this.props.toggleModal()}>
+                            <Text>Borrar</Text>
+                        </TouchableOpacity>
+                        :
+                        null
+                }
                 <Text style={styles.poster}>{info.owner}</Text>
                 <Image
                     style={styles.postImage}
-                    source={{uri: info.photo}}
+                    source={{ uri: info.photo }}
                     resizeMode='contain'
                 />
                 <View style={styles.base}>
-                    <Text>{info.description}</Text>
-                    <TouchableOpacity onPress={()=>this.props.navigation.navigate('Comments',{id: this.props.info.id})}>
-                        <Text>Comentarios</Text>
+                    <Text style={styles.description}>{info.description}</Text>
+                    <TouchableOpacity style={styles.botonComentar} onPress={() => this.props.navigation.navigate('Comments', { id: this.props.info.id })}>
+                        <Text style={styles.textoComentar}>Comentarios</Text>
                     </TouchableOpacity>
                     <View style={styles.divLikes}>
-                        <Text>{this.state.cantLikes}</Text>
                         {
                             this.state.miLike ?
-                                <TouchableOpacity onPress={() => this.unlike()}>
+                                <TouchableOpacity style={styles.botonLike} onPress={() => this.unlike()}>
+                                    <Text style={styles.textoLike}>Unlike</Text>
                                     <FontAwesome name='heart' size={24} color='red' />
                                 </TouchableOpacity>
                                 :
-                                <TouchableOpacity onPress={() => this.like()}>
+                                <TouchableOpacity style={styles.botonLike} onPress={() => this.like()}>
+                                    <Text style={styles.textoLike}>Like</Text>
                                     <FontAwesome name='heart-o' size={24} color='black' />
                                 </TouchableOpacity>
 
                         }
+                        <Text>{this.state.cantLikes}</Text>
                     </View>
                 </View>
             </View>
@@ -101,7 +109,7 @@ export default class Post extends Component {
 const styles = StyleSheet.create({
     card: {
         backgroundColor: '#FFFFFF',
-        height: 300,
+        height: 310,
         width: 340,
         margin: 5,
         alignSelf: 'center',
@@ -117,19 +125,35 @@ const styles = StyleSheet.create({
 
     },
     divLikes: {
-        backgroundColor: '#C9E1BE',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        marginHorizontal: 80
-    },
+        justifyContent: 'flex-end'
+        },
     poster: {
         margin: 5
     },
-    base:{
-        backgroundColor: '#C19A6B',
+    base: {
         margin: 10,
         paddingLeft: 5,
-        paddingRight: 5
+        paddingRight: 5,
+    },
+    botonLike:{
+        display: 'flex',
+        flexDirection: 'row',
+        paddingHorizontal: 5
+
+    },
+    textoLike:{
+        paddingHorizontal: 5
+    },
+    description:{
+        borderBottomWidth: 2
+    },
+    botonComentar:{
+
+    },
+    textoComentar:{
+        fontWeight: 'bold',
+        textDecorationLine: 'underline'
     }
 })

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, FlatList, ImageBackground, TouchableOpacity, TextInput } from 'react-native';
+import { View, StyleSheet, Text, FlatList, ImageBackground, TouchableOpacity, TextInput} from 'react-native';
 import Post from '../components/Post';
 import { db } from '../firebase/config';
 class Search extends Component {
@@ -40,7 +40,7 @@ class Search extends Component {
                     style={styles.cover}
                 >
                     <View style={styles.section1}>
-                        <Text>Search</Text>
+                        <Text style={styles.h1}>Search</Text>
                         <TextInput
                             keyboardType='default'
                             placeholder='usuario@example.com'
@@ -99,25 +99,32 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#FFFFFF',
         borderRadius: 4,
-        width: 100,
         alignItems: 'center',
         justifyContent: 'center',
         height: 50,
         padding: 5,
-        margin: 10
+        margin: 10,
+        marginHorizontal: 100
     },
     textoBoton: {
         color: '#FFFFFF',
         fontSize: 'large'
     },
     section1:{
-        backgroundColor:'red',
-        flex: 1
+        flex: 1,
     },
     section2:{
-        backgroundColor: 'black',
-        flex: 2
-    }
+        backgroundColor: 'gray',
+        flex: 2,
+        borderWidth: 1,
+        borderRadius: 4,
+        textAlign: 'center'
+    },
+    h1: {
+        color: '#FFFFFF',
+        fontSize: 50,
+        textAlign: 'center'
+    },
 })
 
 export default Search;

@@ -1,7 +1,9 @@
 //COMPONENTES REACT
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, ImageBackground, FlatList, Text, Image, ActivityIndicator} from 'react-native';
+import { View, StyleSheet, TouchableOpacity, ImageBackground, FlatList, Text, Image, ActivityIndicator, Modal, Alert, Pressable } from 'react-native';
 import { clockRunning } from 'react-native-reanimated';
+import { FontAwesome } from '@expo/vector-icons';
+
 
 //AUTH Y DB
 import { auth, db } from '../firebase/config';
@@ -15,7 +17,9 @@ class Profile extends Component {
         this.state = {
             cargando: true,
             posts: [],
-            error: 'Este usuario no realizo ningun posteo todavia'
+            error: 'Este usuario no realizo ningun posteo todavia :(',
+            user: {},
+            modalVisible: false
         }
     }
     componentDidMount() {
@@ -32,12 +36,26 @@ class Profile extends Component {
                     posts: posts,
                     cargando: false
                 })
-                
+
             }
         )
+        db.collection('users').where('email', '==', auth.currentUser.email).onSnapshot(
+            docs => {
+                docs.forEach(doc => {
+                    this.setState({
+                        user: doc.data()
+                    })
+                })
+            }
+        )
+
+    }
+    toggleModal(){
+        this.setState({
+            modalVisible: true
+        })
     }
     render() {
-        console.log(auth.currentUser)
         return (
             <View style={styles.container}>
                 <ImageBackground
@@ -45,15 +63,33 @@ class Profile extends Component {
                     resizeMode='cover'
                     style={styles.cover}
                 >
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {
+                            Alert.alert("Modal has been closed.");
+                            this.setModalVisible(!modalVisible);
+                        }}
+                    >
+                        <Text>Estas seguro de que quieres borrar este posteo?</Text>
+                        <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={() => this.setModalVisible(!modalVisible)}
+                        >
+                            <Text>si</Text>
+                        </Pressable>
+                    </Modal>
                     <View style={styles.infoUser}>
                         <View style={styles.topInfo}>
-                            <Image
+                            {/* <Image
                                 source={require('../../assets/pandora1.jpeg')}
                                 resizeMode='contain'
                                 style={styles.profilePic}
-                            />
+                            /> */}
+                            <FontAwesome name="user" size={45} color="black" />
                             <View style={styles.nameAndEmail}>
-                                <Text> {auth.currentUser.displayName} </Text>
+                                <Text> {this.state.user.username}</Text>
                                 <Text> {auth.currentUser.email} </Text>
                             </View>
                         </View>
@@ -62,23 +98,23 @@ class Profile extends Component {
                                 <Text>Last used: {auth.currentUser.metadata.lastSignInTime} </Text>
                                 <Text>Posts: {this.state.posts.length} </Text>
                             </View>
-                            <TouchableOpacity style={styles.logoutBoton} onPress={()=> this.props.route.params.onLogout()}>
+                            <TouchableOpacity style={styles.logoutBoton} onPress={() => this.props.route.params.onLogout()}>
                                 <Text>Logout</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.posts}>
-                    {this.state.cargando ?
+                        {this.state.cargando ?
                             <ActivityIndicator size='xlarge' color='green' />
                             :
                             this.state.posts.length === 0 ?
-                            <Text>{this.state.error}</Text>
-                            :
-                            <FlatList
-                                data={this.state.posts}
-                                keyExtractor={(item) => item.id.toString()}
-                                renderItem={({ item }) => <Post info={item}></Post>}
-                            />
+                                <Text style={styles.error}>{this.state.error}</Text>
+                                :
+                                <FlatList
+                                    data={this.state.posts}
+                                    keyExtractor={(item) => item.id.toString()}
+                                    renderItem={({ item }) => <Post toggleModal={()=>this.toggleModal()} valorBorrar={true} info={item}></Post>}
+                                />
                         }
                     </View>
                 </ImageBackground>
@@ -103,24 +139,28 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         flex: 1,
         margin: 10,
+        borderWidth: 2,
+        borderColor: '#6F4E37'
     },
     posts: {
         backgroundColor: '#B87333',
         flex: 2,
-        margin: 10
+        margin: 10,
+        justifyContent: 'center',
+        textAlign: 'center'
     },
     topInfo: {
         flex: 1,
         backgroundColor: '#8B0000',
         display: 'flex',
         flexDirection: 'row',
-        padding: 10
+        padding: 10,
     },
     bottomInfo: {
         flex: 2,
-        backgroundColor: '#C2B280',
         marginTop: 10,
-        margin: 5
+        margin: 5,
+        justifyContent: 'space-evenly'
     },
     nameAndEmail: {
         flex: 1,
@@ -128,15 +168,16 @@ const styles = StyleSheet.create({
         padding: 10,
         display: 'flex',
         flexDirection: 'column',
-        alignContent: 'space-between'
+        alignContent: 'space-between',
+        marginLeft: 20
     },
-    profilePic:{
+    profilePic: {
         width: 100,
         borderWidth: 2,
         borderColor: '#FFFFFF',
         borderRadius: 50
     },
-    logoutBoton:{
+    logoutBoton: {
         textAlign: 'center',
         backgroundColor: '#33F8FF',
         borderWidth: 3,
@@ -145,10 +186,14 @@ const styles = StyleSheet.create({
         padding: 5,
         margin: 5
     },
-    lastUsed:{
+    lastUsed: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-evenly'
+    },
+    error: {
+        fontWeight: 'bold',
+
     }
 })
 
