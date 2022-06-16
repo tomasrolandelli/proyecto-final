@@ -1,7 +1,6 @@
 //COMPONENTES REACT
 import React, { Component } from 'react';
 import { View, StyleSheet, TouchableOpacity, ImageBackground, FlatList, Text, Image, ActivityIndicator, Modal, Alert, Pressable } from 'react-native';
-import { clockRunning } from 'react-native-reanimated';
 import { FontAwesome } from '@expo/vector-icons';
 
 

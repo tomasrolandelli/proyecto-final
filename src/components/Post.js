@@ -83,7 +83,7 @@ export default class Post extends Component {
                 <View style={styles.base}>
                     <Text style={styles.description}>{info.description}</Text>
                     <TouchableOpacity style={styles.botonComentar} onPress={() => this.props.navigation.navigate('Comments', { id: this.props.info.id })}>
-                        <Text style={styles.textoComentar}>Comentarios</Text>
+                        <Text style={styles.textoComentar}>Comentarios ({info.comments.length})</Text>
                     </TouchableOpacity>
                     <View style={styles.divLikes}>
                         {
