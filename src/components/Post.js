@@ -57,11 +57,17 @@ export default class Post extends Component {
             cantLikes: this.state.cantLikes - 1
         })
     }
+    onDelete(){
+        db.collection('posts').doc(this.props.info.id).delete()
+    }
     render() {
         //INFO DEL POST
         const info = this.props.info.data
         return (
             <View style={styles.card}>
+                <TouchableOpacity onPress={()=>this.onDelete()}>
+                    <Text>Borrar</Text>
+                </TouchableOpacity>
                 <Text style={styles.poster}>{info.owner}</Text>
                 <Image
                     style={styles.postImage}
