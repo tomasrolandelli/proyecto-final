@@ -48,8 +48,6 @@ class Menu extends Component {
 
         auth.createUserWithEmailAndPassword(email, pass)
             .then((response) => {
-                this.setState({ loggedIn: true })
-                auth.currentUser.updateProfile({displayName: user})
                 db.collection('users').add({
                     email: email,
                     username: user,
