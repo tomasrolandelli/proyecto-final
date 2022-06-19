@@ -40,7 +40,7 @@ class Menu extends Component {
                 this.setState({ loggedIn: true, email: email })
             })
             .catch((error) => {
-               // this.setState({ errorLogin: error.message})
+               this.setState({ errorLogin: error.message})
                console.log(error)
             })
     }

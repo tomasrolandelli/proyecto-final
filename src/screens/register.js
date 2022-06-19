@@ -4,7 +4,11 @@ import { View, StyleSheet, Text, TextInput, TouchableOpacity, ImageBackground } 
 class Register extends Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {
+            email: "",
+            username: "",
+            password: ""
+        }
     }
     render() {
         return (
@@ -36,7 +40,7 @@ class Register extends Component {
                         onChangeText={(text) => this.setState({ password: text })}
                     />
                     <Text> {this.props.errores} </Text>
-                    <TouchableOpacity style={styles.botonForm} onPress={() => this.props.route.params.onRegister(this.state.email, this.state.password, this.state.username)}>
+                    <TouchableOpacity style={styles.botonForm} onPress={() => this.props.route.params.onRegister(this.state.email, this.state.password, this.state.username)} disabled={this.state.email.length===0 || this.state.password.length===0 || this.state.username.length===0 ?true:false }>
                         <Text style={styles.textoBoton}> GO </Text>
                     </TouchableOpacity>
                 </ImageBackground>

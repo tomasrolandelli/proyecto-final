@@ -18,8 +18,22 @@ class Profile extends Component {
             posts: [],
             error: 'Este usuario no realizo ningun posteo todavia :(',
             user: {},
-            modalVisible: false
+            modalVisible: false,
+            docId: ""
         }
+    }
+    delete(){
+        db.collection("posts").doc(this.state.docId).delete()
+        this.setState({
+            docId: "",
+            modalVisible: false
+        })
+    }
+    cancel(){
+        this.setState({
+            docId: "",
+            modalVisible: false
+        })
     }
     componentDidMount() {
         db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot(
@@ -49,9 +63,10 @@ class Profile extends Component {
         )
 
     }
-    toggleModal(){
+    toggleModal(id){
         this.setState({
-            modalVisible: true
+            modalVisible: true,
+            docId: id
         })
     }
     render() {
@@ -64,20 +79,30 @@ class Profile extends Component {
                 >
                     <Modal
                         animationType="slide"
-                        transparent={true}
+                        transparent={false}
+                        style={styles.modal}
                         visible={this.state.modalVisible}
                         onRequestClose={() => {
                             Alert.alert("Modal has been closed.");
-                            this.setModalVisible(!modalVisible);
+                            this.delete();
                         }}
                     >
+                        <View style={styles.alert}>
                         <Text>Estas seguro de que quieres borrar este posteo?</Text>
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => this.setModalVisible(!modalVisible)}
-                        >
-                            <Text>si</Text>
-                        </Pressable>
+                            <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => this.delete()}
+                            >
+                                <Text>Si</Text>
+                            </Pressable>
+                            <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => this.cancel()}
+                            >
+                                <Text>No</Text>
+                            </Pressable>    
+                        </View>
+
                     </Modal>
                     <View style={styles.infoUser}>
                         <View style={styles.topInfo}>
@@ -112,7 +137,7 @@ class Profile extends Component {
                                 <FlatList
                                     data={this.state.posts}
                                     keyExtractor={(item) => item.id.toString()}
-                                    renderItem={({ item }) => <Post toggleModal={()=>this.toggleModal()} valorBorrar={true} info={item}></Post>}
+                                    renderItem={({ item }) => <Post toggleModal={(id)=>this.toggleModal(id)} valorBorrar={true} info={item}></Post>}
                                 />
                         }
                     </View>
@@ -193,6 +218,17 @@ const styles = StyleSheet.create({
     error: {
         fontWeight: 'bold',
 
+    },
+    alert:{
+        backgroundColor: 'white',
+        position: "relative",
+        top: 250
+    },
+    modal:{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "rgba(83, 81, 87, 0.048)"
     }
 })
 

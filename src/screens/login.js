@@ -5,7 +5,9 @@ class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            error: ''
+            error: '',
+            email: "",
+            password: ""
         }
     }
     render() {
@@ -31,13 +33,10 @@ class Login extends Component {
                         onChangeText={(text) => this.setState({ password: text })}
                     />
                     <Text> {this.props.errores} </Text>
-                    <TouchableOpacity style={styles.botonForm} onPress={() => this.props.route.params.onLogin(this.state.email, this.state.password)}>
+                    <TouchableOpacity style={styles.botonForm} onPress={() => this.props.route.params.onLogin(this.state.email, this.state.password)} disabled={this.state.email.length===0 || this.state.password.length===0 ?true:false } >
                         <Text style={styles.textoBoton}> GO </Text>
                     </TouchableOpacity>
-                    {this.state.error !== '' ?
-                        <Text>{this.state.error}</Text>
-                        :
-                        null}
+                   
                 </ImageBackground>
             </View>
         );

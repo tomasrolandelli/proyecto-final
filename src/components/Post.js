@@ -68,7 +68,7 @@ export default class Post extends Component {
             <View style={styles.card}>
                 {
                     this.state.valorBorrar ?
-                        <TouchableOpacity onPress={() => this.props.toggleModal()}>
+                        <TouchableOpacity onPress={() => this.props.toggleModal(this.props.info.id)}>
                             <Text>Borrar</Text>
                         </TouchableOpacity>
                         :
@@ -109,7 +109,7 @@ export default class Post extends Component {
 const styles = StyleSheet.create({
     card: {
         backgroundColor: '#FFFFFF',
-        height: 310,
+        minHeight: 310,
         width: 340,
         margin: 5,
         alignSelf: 'center',
