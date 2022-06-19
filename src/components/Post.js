@@ -10,6 +10,7 @@ import { auth, db } from '../firebase/config'
 
 //ICONO CORAZON
 import { FontAwesome } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons';
 
 export default class Post extends Component {
     constructor(props) {
@@ -68,9 +69,11 @@ export default class Post extends Component {
             <View style={styles.card}>
                 {
                     this.state.valorBorrar ?
-                        <TouchableOpacity onPress={() => this.props.toggleModal(this.props.info.id)}>
-                            <Text>Borrar</Text>
-                        </TouchableOpacity>
+                        <View style={styles.areaBorrar}>
+                            <TouchableOpacity style={styles.botonBorrar} onPress={() => this.props.toggleModal(this.props.info.id)}>
+                                <AntDesign name="delete" size={24} color="black" />
+                            </TouchableOpacity>
+                        </View>
                         :
                         null
                 }
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-end'
-        },
+    },
     poster: {
         margin: 5
     },
@@ -137,23 +140,36 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         paddingRight: 5,
     },
-    botonLike:{
+    botonLike: {
         display: 'flex',
         flexDirection: 'row',
         paddingHorizontal: 5
 
     },
-    textoLike:{
+    textoLike: {
         paddingHorizontal: 5
     },
-    description:{
+    description: {
         borderBottomWidth: 2
     },
-    botonComentar:{
+    botonComentar: {
 
     },
-    textoComentar:{
+    textoComentar: {
         fontWeight: 'bold',
         textDecorationLine: 'underline'
+    },
+    areaBorrar: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        margin: 2
+    },
+    botonBorrar:{
+        backgroundColor: '#FF6666',
+        width: 50,
+        alignSelf: 'flex-end',
+        borderWidth: 1,
+        borderColor: '#B30000',
+        borderRadius: 4
     }
 })

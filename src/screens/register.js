@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#909f43',
     },
     botonForm: {
-        backgroundColor: '#030303',
-        borderWidth: 2,
+        backgroundColor: '#D5B895',
+        borderWidth: 0,
         borderColor: '#FFFFFF',
         borderRadius: 4,
         width: 100,

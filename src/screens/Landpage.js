@@ -20,7 +20,7 @@ export default class Landpage extends Component {
                     <Text style={styles.subtitulo}>Bienvenido a la primer red social de mascotas</Text>
                     <View style={styles.containerBotones}>
                         <TouchableOpacity style={styles.boton} onPress={() => this.props.navigation.navigate('Login')}>
-                            <Text style={styles.textoBoton}>login</Text>
+                            <Text style={styles.textoBoton}>Login</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.boton} onPress={() => this.props.navigation.navigate('Register')}>
                             <Text style={styles.textoBoton}>Register</Text>
@@ -43,21 +43,25 @@ const styles = StyleSheet.create({
     titulo: {
         color: '#6F4E37',
         fontSize: 50,
-        backgroundColor:'#FFFFFF',
         padding: 5,
-        borderWidth: 2,
+        borderWidth: 0,
         borderColor:'#6F4E37',
-        borderRadius:4
+        borderRadius:4,
+        textShadowColor: '#000', 
+        textShadowOffset: { width: 0.5, height: 0.5 }, 
+        textShadowRadius: 1,
     },
     subtitulo: {
         color: '#FFFFFF',
         fontSize: 15,
-        backgroundColor: '#6F4E37',
-        margin: 10
+        margin: 10,
+        textShadowColor: '#000', 
+        textShadowOffset: { width: 0.5, height: 0.5 }, 
+        textShadowRadius: 1,
     },
     boton: {
-        backgroundColor: '#030303',
-        borderWidth: 2,
+        backgroundColor: '#D5B895',
+        borderWidth: 0,
         borderColor: '#FFFFFF',
         borderRadius: 4,
         width: 150,
@@ -69,7 +73,7 @@ const styles = StyleSheet.create({
 
     },
     textoBoton: {
-        color: '#FFFFFF'
+        color: '#FFFFFF',
     },
     containerBotones: {
         display: 'flex',

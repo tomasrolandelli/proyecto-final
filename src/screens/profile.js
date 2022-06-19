@@ -90,7 +90,7 @@ class Profile extends Component {
                         <View style={styles.alert}>
                         <Text>Estas seguro de que quieres borrar este posteo?</Text>
                             <Pressable
-                                style={[styles.button, styles.buttonClose]}
+                                style={[styles.button, styles.buttonAceptar]}
                                 onPress={() => this.delete()}
                             >
                                 <Text>Si</Text>
@@ -167,7 +167,6 @@ const styles = StyleSheet.create({
         borderColor: '#6F4E37'
     },
     posts: {
-        backgroundColor: '#B87333',
         flex: 2,
         margin: 10,
         justifyContent: 'center',
@@ -175,7 +174,7 @@ const styles = StyleSheet.create({
     },
     topInfo: {
         flex: 1,
-        backgroundColor: '#8B0000',
+        backgroundColor: '#D5B895',
         display: 'flex',
         flexDirection: 'row',
         padding: 10,
@@ -203,10 +202,10 @@ const styles = StyleSheet.create({
     },
     logoutBoton: {
         textAlign: 'center',
-        backgroundColor: '#33F8FF',
+        backgroundColor: '#ADD8E6',
         borderWidth: 3,
         borderRadius: 4,
-        borderColor: '#33D1FF',
+        borderColor: '#FFFFFF',
         padding: 5,
         margin: 5
     },
@@ -222,13 +221,42 @@ const styles = StyleSheet.create({
     alert:{
         backgroundColor: 'white',
         position: "relative",
-        top: 250
+        top: 250,
+        textAlign: 'center',
+
     },
     modal:{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        color: "rgba(83, 81, 87, 0.048)"
+        color: "rgba(83, 81, 87, 0.048)",
+        margin: 50,
+
+    },
+    buttonAceptar:{
+        backgroundColor: '#FF6666',
+        color: '#FFFFFF',
+        margin: 5,
+        marginHorizontal: 30,
+        height: 30,
+        display: 'flex',
+        justifyContent: 'center',
+        borderWidth: 2,
+        borderRadius: 4,
+        borderColor: '#B34747',
+
+    },
+    buttonClose:{
+        color: '#FFFFFF',
+        backgroundColor: 'green',
+        margin: 5,
+        marginHorizontal: 30,
+        height: 30,
+        display: 'flex',
+        justifyContent: 'center',
+        borderWidth: 2,
+        borderRadius: 4,
+        borderColor: 'black'
     }
 })
 
