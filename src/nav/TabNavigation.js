@@ -49,7 +49,8 @@ export default class Tabnavigation extends Component {
                         
                     }}
                     initialParams={{
-                        onLogout: () => this.props.route.params.onLogout()
+                        onLogout: () => this.props.route.params.onLogout(),
+                        navigation: this.props.navigation
                     }}
 
                 />
@@ -61,7 +62,9 @@ export default class Tabnavigation extends Component {
                         tabBarIcon: () => <AntDesign name="pluscircle" size={24} color="black"/>, 
                         unmountOnBlur: true
                     }}
-
+                    initialParams={{
+                        navigation: this.props.navigation
+                    }}
                 />
                 <Tab.Screen
                     name='Search'

@@ -137,7 +137,7 @@ class Profile extends Component {
                                 <FlatList
                                     data={this.state.posts}
                                     keyExtractor={(item) => item.id.toString()}
-                                    renderItem={({ item }) => <Post toggleModal={(id)=>this.toggleModal(id)} valorBorrar={true} info={item}></Post>}
+                                    renderItem={({ item }) => <Post toggleModal={(id)=>this.toggleModal(id)} valorBorrar={true} info={item} navigation={this.props.route.params.navigation}></Post>}
                                 />
                         }
                     </View>
@@ -188,7 +188,6 @@ const styles = StyleSheet.create({
     nameAndEmail: {
         flex: 1,
         backgroundColor: '#FFFFFF',
-        padding: 10,
         display: 'flex',
         flexDirection: 'column',
         alignContent: 'space-between',
