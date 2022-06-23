@@ -51,6 +51,7 @@ export default class MyCamera extends Component {
                         this.props.onPhotoSubmit(url)
                         })
                 })
+                .catch((err)=>console.log(err))
         })
         .catch((error)=>console.log(error))
     }

@@ -68,7 +68,7 @@ export default class Tabnavigation extends Component {
                 />
                 <Tab.Screen
                     name='Search'
-                    component={Search}
+                    children={ (props) => <Search navigation={this.props.navigation} errores={this.state.errorLogin} { ...props} /> }
                     options={{
                         headerShown: false,
                         tabBarIcon: () => <FontAwesome name="search" size={24} color="black" />

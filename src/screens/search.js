@@ -59,7 +59,7 @@ class Search extends Component {
                         <FlatList
                             data={this.state.posteos}
                             keyExtractor={(item)=> item.id.toString()}
-                            renderItem={({item}) => <Post info={item} navigation={this.props.route.params.navigation} valorBorrar={false}></Post>}
+                            renderItem={({item}) => <Post info={item} navigation={this.props.navigation} valorBorrar={false}></Post>}
                         />
                     </View>
                         :
