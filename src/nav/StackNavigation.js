@@ -46,8 +46,8 @@ class Menu extends Component {
     }
     onRegister(email, pass, user) {
 
-        auth.createUserWithEmailAndPassword(email, pass)
-            .then((response) => {
+        auth.createUserWithEmailAndPassword(email, pass) //promesa entonces .then
+            .then((response) => { //comenzamos a guardar en la colección
                 db.collection('users').add({
                     email: email,
                     username: user,
@@ -110,7 +110,7 @@ class Menu extends Component {
                             />
                             <Stack.Screen
                                 name='Register'
-                                children={ (props) => <Register errores={this.state.errorRegister} { ...props} /> }
+                                children={ (props) => <Register errores={this.state.errorRegister} { ...props} /> } 
                                 options={{
                                     headerStyle: {
                                         backgroundColor: '#6F4E37'

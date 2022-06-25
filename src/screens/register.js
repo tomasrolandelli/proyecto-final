@@ -23,7 +23,7 @@ class Register extends Component {
                         style={styles.formulario}
                         keyboardType='email-address'
                         placeholder='email'
-                        onChangeText={(text) => this.setState({ email: text })}
+                        onChangeText={(text) => this.setState({ email: text })} //Onchangetext devuelve como parámetro el valor del input
                     />
                     <TextInput
                         style={styles.formulario}
