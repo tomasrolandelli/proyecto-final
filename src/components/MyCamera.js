@@ -40,11 +40,11 @@ export default class MyCamera extends Component {
         })
     }
     acceptPhoto(){
-        fetch(this.state.urlFoto)
-        .then((res)=>res.blob())
+        fetch(this.state.urlFoto) //normalmente haríamos un response.json
+        .then((res)=>res.blob()) // Binary Large Object. Para trabajar con la url de materiales audiovisuales
         .then((image)=>{
-            const ref = storage.ref(`photos/${Date.now()}.jpg`)
-            ref.put(image)
+            const ref = storage.ref(`photos/${Date.now()}.jpg`) //ref es un método de referencia //alamacena la foto con un nuevo nombre
+            ref.put(image) //sube datos al almacenamiento de la ref
                 .then(()=>{
                     ref.getDownloadURL()
                         .then((url)=>{
